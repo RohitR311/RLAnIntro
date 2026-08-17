@@ -9,31 +9,42 @@ This is a personal study repo, made public in case it's useful to someone workin
 the same book. It is not a library, and nothing here is meant to be imported into real
 projects.
 
-## What's here
+## Chapters
 
-**Chapter 2 — Multi-armed Bandits.** Ten notebooks, one per section, in reading order.
+| Chapter | Topic | Contents | Status |
+|---|---|---|---|
+| [2](Chpt2/) | Multi-armed Bandits | 10 notebooks, 56-question quiz | Done |
+| 3 | Finite Markov Decision Processes | — | Next |
 
-| Notebook | Section | Topic |
-|---|---|---|
-| [`01_k_armed_bandit_problem`](Chpt2/01_k_armed_bandit_problem.ipynb) | 2.1 | `q*(a)`, explore vs. exploit, regret |
-| [`02_action_value_methods`](Chpt2/02_action_value_methods.ipynb) | 2.2 | sample averages, ε-greedy, maximisation bias |
-| [`03_the_10_armed_testbed`](Chpt2/03_the_10_armed_testbed.ipynb) | 2.3 | the benchmark; why the best ε depends on your horizon |
-| [`04_incremental_implementation`](Chpt2/04_incremental_implementation.ipynb) | 2.4 | the update rule that runs through the whole book |
-| [`05_tracking_a_nonstationary_problem`](Chpt2/05_tracking_a_nonstationary_problem.ipynb) | 2.5 | constant α, recency weighting, tracking a moving target |
-| [`06_optimistic_initial_values`](Chpt2/06_optimistic_initial_values.ipynb) | 2.6 | optimism as an exploration driver, and where it breaks |
-| [`07_upper_confidence_bound`](Chpt2/07_upper_confidence_bound.ipynb) | 2.7 | UCB, and why the step-11 spike is there |
-| [`08_gradient_bandit_algorithms`](Chpt2/08_gradient_bandit_algorithms.ipynb) | 2.8 | preferences, soft-max, baselines as variance reduction |
-| [`09_associative_search`](Chpt2/09_associative_search.ipynb) | 2.9 | contextual bandits; what state buys you |
-| [`10_summary_parameter_study`](Chpt2/10_summary_parameter_study.ipynb) | 2.10 | fair comparison, regret growth, Thompson sampling |
+Each chapter folder has its own README with a per-notebook breakdown. Start there rather
+than here once you've picked a chapter.
 
-`Chpt2/bandit_utils.py` holds the shared testbed. Everything is vectorised over runs, so a
-full 2000-problem sweep takes a second or two rather than a minute.
+### Chapter 2 — Multi-armed Bandits
 
-**A quiz.** [`Chpt2/chapter2_quiz.html`](Chpt2/chapter2_quiz.html) — 56 multiple-choice
-questions covering every section, medium to hard. Open it in a browser; no server needed.
-Questions and answer options reshuffle on every reload, so the position of the correct
-answer tells you nothing. Pick an option and you get the explanation immediately, right or
-wrong, plus a note on why the specific distractor you chose was wrong.
+One notebook per section (2.1 through 2.10), covering ε-greedy, incremental updates,
+tracking nonstationary problems, optimistic initialisation, UCB, gradient bandits,
+contextual bandits, and a parameter study comparing all of them fairly. Book exercises
+2.1–2.8 and 2.10 are worked through in code. Ends with Thompson sampling as a
+"where next" exercise.
+
+→ [`Chpt2/README.md`](Chpt2/README.md)
+
+## How a chapter folder is laid out
+
+Every chapter follows the same shape, so once you've found your way around one you've
+found your way around all of them:
+
+```
+ChptN/
+  README.md                  index for the chapter, with a per-notebook table
+  01_*.ipynb .. NN_*.ipynb   one notebook per section, in reading order
+  *_utils.py                 shared simulation code for that chapter
+  chapterN_quiz.html         self-test, opens in a browser
+```
+
+Notebooks import their chapter's utils module from the working directory, so launch
+Jupyter from inside the chapter folder (or open the folder from a root-level Jupyter).
+Chapters are self-contained — there's no cross-chapter package to install.
 
 ## Running it
 
@@ -46,48 +57,55 @@ python -m pip install -r requirements.txt
 jupyter lab
 ```
 
-Launch Jupyter from inside `Chpt2/` (or start it at the repo root and open the folder) —
-the notebooks add their working directory to `sys.path` to import `bandit_utils`.
+`requirements.txt` at the root covers every chapter. If a later chapter needs something
+extra, it gets added there.
 
-By default the testbed runs 500 problems per experiment: slightly noisy curves, near-instant
-cells. For the book-faithful 2000 runs, set the environment variable before launching:
+## Conventions
+
+A few things hold across all chapters:
+
+**Predict first.** Each experiment is preceded by a cell asking what you think will
+happen. Committing to a guess before running the code is the point — the explanation
+below lands differently when you've just been wrong about something. Reading straight
+through works, but you'll get much less out of it. Answers sit in collapsed blocks you
+open afterwards.
+
+**Fast by default.** Simulations run a reduced number of trials so cells return almost
+immediately. Set `RL_MODE=FULL` before launching Jupyter for the book-faithful counts:
 
 ```bash
 RL_MODE=FULL jupyter lab
 ```
 
-Every plot has the same shape either way; FULL just smooths them out.
+Plots have the same shape either way; FULL just smooths them out.
 
-## How these are meant to be used
+**Sliders are for afterwards.** Once you've finished a section, go back and break things.
+The extreme parameter settings are the instructive ones.
 
-Each experiment is preceded by a **Predict first** cell asking what you think will happen.
-Committing to a guess before running the cell is the whole point — the explanation below
-lands differently when you've just been wrong about something. Reading straight through
-works, but you'll get much less out of it.
-
-The interactive sliders are for afterwards. Go back and break things; the extreme settings
-are the instructive ones.
+**Quizzes reshuffle.** Questions and answer options are randomised on every page load, so
+the position of the correct answer tells you nothing and a second attempt is a real
+retest. Selecting an option reveals the explanation immediately, right or wrong, plus a
+note on why the specific distractor you chose was wrong.
 
 ## On AI use
 
-I used Claude (Anthropic) to generate the notebooks and the quiz. Being specific about
-that, since "AI-assisted" can mean anything:
+I use Claude (Anthropic) to generate the notebooks and quizzes. Being specific about that,
+since "AI-assisted" can mean anything:
 
-- The **structure, code, prose, and explanations** in the notebooks are AI-generated, from
-  my prompts, over several rounds of back-and-forth.
+- The **structure, code, prose, and explanations** are AI-generated, from my prompts, over
+  several rounds of back-and-forth.
 - The **quiz questions, answers, and explanations** are likewise AI-generated.
-- The **numerical claims were checked by running them**, not taken on trust. Every notebook
-  executes end-to-end without errors, and empirical assertions ("greedy plateaus around
-  35%", "the parameter study ranks UCB first") were verified against actual simulation
-  output.
+- The **numerical claims are checked by running them**, not taken on trust. Every notebook
+  executes end-to-end without errors, and empirical assertions are verified against actual
+  simulation output before they go in.
 
-That verification step caught real errors, which is the part worth knowing about. A
-fact-checking pass over the quiz found five, one of which was also present in the Section
-2.5 notebook: I'd claimed the sample-average method's performance *declines* over time on
-the nonstationary testbed. It doesn't — running it to 40,000 steps, it rises and then
-plateaus near 45% while constant-α keeps climbing past 80%. The stated mechanism was right
-and the predicted symptom was wrong. Both have been corrected, and the notebook now flags
-"declines" explicitly as the tempting wrong answer.
+That verification step is the part worth knowing about, because it catches real errors. In
+Chapter 2 a fact-checking pass over the quiz found five, one of which was also present in
+the Section 2.5 notebook: I'd claimed the sample-average method's performance *declines*
+over time on the nonstationary testbed. It doesn't — running it to 40,000 steps, it rises
+and then plateaus near 45% while constant-α keeps climbing past 80%. The stated mechanism
+was right and the predicted symptom was wrong. Both were corrected, and the notebook now
+flags "declines" explicitly as the tempting wrong answer.
 
 I mention this not as a disclaimer but as the actual lesson: **plausible-sounding
 explanations of simulation results are exactly where this stuff goes wrong**, and the only
@@ -95,8 +113,8 @@ defence is running the simulation. If you spot something here that looks off, it
 be. Open an issue.
 
 The mathematical content — definitions, derivations, exercise answers — tracks the book
-closely and I've checked it against the text. The empirical numbers come from this repo's
-own code, so you can re-run anything you doubt.
+closely and I check it against the text. The empirical numbers come from this repo's own
+code, so you can re-run anything you doubt.
 
 ## Attribution
 
@@ -111,9 +129,3 @@ notebooks assume you've read the corresponding section and want to see it move.
 
 The code here is mine (and Claude's) to do with as you like. The ideas are Sutton and
 Barto's.
-
-## Status
-
-Chapter 2 done. Chapter 3 next, though value functions and Bellman backups don't lend
-themselves to visualisation nearly as naturally as bandit curves do, so it may look
-different.
