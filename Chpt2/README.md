@@ -7,16 +7,16 @@ guess.
 
 | Notebook | Section | Core idea | Book figure / exercise |
 |---|---|---|---|
-| `01_sec2.1_k_armed_bandit_problem.ipynb` | 2.1 | $q_*(a)$, explore vs. exploit, regret | Ex. 2.1 |
-| `02_sec2.2_action_value_methods.ipynb` | 2.2 | sample averages, $\varepsilon$-greedy, maximisation bias | Ex. 2.2 |
-| `03_sec2.3_the_10_armed_testbed.ipynb` | 2.3 | the benchmark; horizon-dependence of $\varepsilon$ | **Fig. 2.2**, Ex. 2.3 |
-| `04_sec2.4_incremental_implementation.ipynb` | 2.4 | $Q_{n+1} = Q_n + \frac1n[R_n - Q_n]$, step-size weights | — |
-| `05_sec2.5_tracking_a_nonstationary_problem.ipynb` | 2.5 | constant $\alpha$, recency weighting, tracking | Ex. 2.4, **Ex. 2.5** |
-| `06_sec2.6_optimistic_initial_values.ipynb` | 2.6 | optimism as an exploration driver, and its limits | **Fig. 2.3**, Ex. 2.6 |
-| `07_sec2.7_upper_confidence_bound.ipynb` | 2.7 | $Q_t(a) + c\sqrt{\ln t / N_t(a)}$ | **Fig. 2.4**, Ex. 2.8 |
-| `08_sec2.8_gradient_bandit_algorithms.ipynb` | 2.8 | preferences, soft-max, baselines as variance reduction | **Fig. 2.5**, Ex. 2.7 |
-| `09_sec2.9_associative_search.ipynb` | 2.9 | contextual bandits; the value of state | Ex. 2.10 |
-| `10_sec2.10_summary_parameter_study.ipynb` | 2.10 | fair comparison, regret growth, Thompson sampling | **Fig. 2.6** |
+| `01_k_armed_bandit_problem.ipynb` | 2.1 | $q_*(a)$, explore vs. exploit, regret | Ex. 2.1 |
+| `02_action_value_methods.ipynb` | 2.2 | sample averages, $\varepsilon$-greedy, maximisation bias | Ex. 2.2 |
+| `03_the_10_armed_testbed.ipynb` | 2.3 | the benchmark; horizon-dependence of $\varepsilon$ | **Fig. 2.2**, Ex. 2.3 |
+| `04_incremental_implementation.ipynb` | 2.4 | $Q_{n+1} = Q_n + \frac1n[R_n - Q_n]$, step-size weights | — |
+| `05_tracking_a_nonstationary_problem.ipynb` | 2.5 | constant $\alpha$, recency weighting, tracking | Ex. 2.4, **Ex. 2.5** |
+| `06_optimistic_initial_values.ipynb` | 2.6 | optimism as an exploration driver, and its limits | **Fig. 2.3**, Ex. 2.6 |
+| `07_upper_confidence_bound.ipynb` | 2.7 | $Q_t(a) + c\sqrt{\ln t / N_t(a)}$ | **Fig. 2.4**, Ex. 2.8 |
+| `08_gradient_bandit_algorithms.ipynb` | 2.8 | preferences, soft-max, baselines as variance reduction | **Fig. 2.5**, Ex. 2.7 |
+| `09_associative_search.ipynb` | 2.9 | contextual bandits; the value of state | Ex. 2.10 |
+| `10_summary_parameter_study.ipynb` | 2.10 | fair comparison, regret growth, Thompson sampling | **Fig. 2.6** |
 
 `bandit_utils.py` holds the shared vectorised testbed and plotting helpers. Every
 experiment simulates all runs simultaneously with numpy, so nothing here takes more than
